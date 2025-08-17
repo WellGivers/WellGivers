@@ -29,15 +29,12 @@
       flex-direction: column;
       text-align: center;
       position: relative;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
     }
 
     /* Landing Page */
     .page1 {
-      background-image: url('hmo-backgroundaa.png');
-      background-attachment: fixed;
+      background: url('hmo-backgroundaa.png') center center no-repeat;
+      background-size: cover;
       color: white;
     }
 
@@ -80,24 +77,17 @@
 
     /* Flowchart Page */
     .page2 {
-      background-image: url('hmo-backgroundbb.png');
-      background-attachment: fixed;
+      background: url('hmo-backgroundbb.png') center center no-repeat;
+      background-size: cover;
       color: #333;
-    }
-
-    .page2 h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #2e8b57;
     }
 
     .page2 img {
       max-width: 95%;
-      max-height: 75vh;
+      max-height: 80vh;
       border-radius: 10px;
       margin-bottom: 20px;
       transition: transform 0.4s;
-      object-fit: contain;
     }
 
     .page2 img:hover {
@@ -135,7 +125,6 @@
 
     <!-- Page 2 -->
     <div class="page page2">
-      <h2></h2>
       <img src="flowchart.png" alt="">
 
       <div class="button-row">
