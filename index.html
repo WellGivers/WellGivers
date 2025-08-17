@@ -1,131 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wellgivers HMO</title>
   <style>
-    body, html {
+    :root {
+      --btn-bg: #26c579;
+      --btn-bg-hover: #1ea869;
+    }
+
+    /* Reset / Base */
+    * { box-sizing: border-box; }
+    html, body {
       margin: 0;
-      padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden;
+      overflow: hidden; /* no scrollbars; two full-screen slides */
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
+    /* Slider: exactly two screens wide */
     .container {
       display: flex;
-      width: 200%; /* two pages side by side */
-      height: 100vh;
-      transition: transform 0.8s ease-in-out;
+      width: calc(100vw * 2);          /* 2 pages, each 100vw */
+      height: 100vh;                   /* fallback */
+      height: 100svh;                  /* mobile safe viewport */
+      transition: transform 0.7s ease;
+      will-change: transform;
     }
 
     .page {
-      flex: 0 0 50%; /* desktop: half width */
-      height: 100vh;
+      width: 100vw;
+      height: 100vh;                   /* fallback */
+      height: 100svh;                  /* mobile safe viewport */
+      flex: 0 0 100vw;                 /* each page exactly 100vw */
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       flex-direction: column;
       text-align: center;
-      box-sizing: border-box;
-      padding: 20px;
-    }
-
-    .page1 {
-      background: url('hmo-backgroundax.png') center center no-repeat;
-      background-size: cover;
       position: relative;
+      padding: 16px;
     }
 
-    .btn {
-      background: #26c579;
-      color: white;
-      padding: 14px 28px;
-      text-decoration: none;
-      border-radius: 30px;
-      font-size: 1em;
-      font-weight: bold;
-      transition: transform 0.3s, background 0.3s;
-      cursor: pointer;
-      border: none;
+    /* Page 1 (Landing) */
+    .page1 {
+      background: url('hmo-backgroundax.png') center center / cover no-repeat;
+      color: #fff;
     }
 
-    .btn:hover {
-      background: #1ea869;
-      transform: scale(1.05);
-    }
-
+    /* See Process bottom-left (desktop), adjusted on mobile */
     #seeProcess {
       position: absolute;
-      bottom: 20px;
-      left: 20px;
+      left: 24px;
+      bottom: 24px;
     }
 
+    /* Page 2 (Flow) */
     .page2 {
-      background: url('hmo-backgroundbx.png') center center no-repeat;
-      background-size: cover;
-      color: #333;
+      background: url('hmo-backgroundbx.png') center center / cover no-repeat;
+      color: #222;
     }
 
-    .page2 img {
-      max-width: 90%;
-      max-height: 70vh;
+    /* Flowchart image scales with clamp for all screens */
+    .flowchart {
+      width: clamp(260px, 70vw, 920px);    /* responsive width */
+      max-height: min(62svh, 650px);       /* never too tall */
       object-fit: contain;
-      margin-bottom: 20px;
       border-radius: 10px;
+      margin-bottom: 18px;
+      transition: transform .25s ease;
+      background: #fff;                    /* if PNG has transparency */
+    }
+    .flowchart:hover { transform: scale(1.015); }
+
+    /* Buttons */
+    .btn {
+      background: var(--btn-bg);
+      color: #fff;
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 30px;                 /* rounded */
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
+      transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover {
+      background: var(--btn-bg-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
     }
 
     .button-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
+      gap: 14px;
       justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    /* MOBILE RESPONSIVENESS */
+    /* Mobile tweaks */
     @media (max-width: 768px) {
-      .container {
-        width: 200%; /* still 2 pages */
-      }
-
-      .page {
-        flex: 0 0 100%; /* each page full width */
-        height: 100vh;
-        padding: 15px;
-      }
-
-      .page2 img {
-        max-width: 95%;
-        max-height: 55vh; /* shrink more */
-      }
-
       #seeProcess {
-        left: 50%;
-        transform: translateX(-50%); /* center button */
+        left: 16px;
+        bottom: 16px;
       }
+      .btn { padding: 12px 18px; font-size: 0.95rem; }
+      .button-row { gap: 10px; }
+      .flowchart {
+        width: clamp(220px, 90vw, 740px);
+        max-height: min(55svh, 520px);
+      }
+    }
+
+    /* Respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      .container { transition: none; }
+      .flowchart, .btn { transition: none; }
     }
   </style>
 </head>
 <body>
-
   <div class="container" id="container">
     <!-- Page 1 -->
-    <div class="page page1">
+    <section class="page page1">
       <button class="btn" id="seeProcess">See Process</button>
-    </div>
+    </section>
 
     <!-- Page 2 -->
-    <div class="page page2">
-      <img src="flowchart.png" alt="Flowchart">
+    <section class="page page2">
+      <img src="flowchart.png" alt="Wellgivers Sponsorship Flow" class="flowchart" />
       <div class="button-row">
-        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">
-          Start Sponsorship Registration
-        </a>
+        <a
+          class="btn"
+          target="_blank"
+          href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl="
+        >Start Sponsorship Registration</a>
         <button class="btn" id="goBack">⬅ Back</button>
       </div>
-    </div>
+    </section>
   </div>
 
   <script>
@@ -133,24 +152,27 @@
     const seeProcess = document.getElementById('seeProcess');
     const goBack = document.getElementById('goBack');
 
-    function slideToPage(pageIndex) {
-      const isMobile = window.innerWidth <= 768;
-      const shift = isMobile ? -100 * pageIndex : -50 * pageIndex;
-      container.style.transform = `translateX(${shift}%)`;
+    let currentPage = 0;
+
+    function viewportWidth() {
+      // Use visualViewport for mobile address bar changes when available
+      return (window.visualViewport && window.visualViewport.width) || window.innerWidth;
     }
 
-    seeProcess.addEventListener('click', () => slideToPage(1));
-    goBack.addEventListener('click', () => slideToPage(0));
+    function slideTo(index) {
+      currentPage = index;
+      const offset = -index * viewportWidth(); // pixels, not %
+      container.style.transform = `translateX(${offset}px)`;
+    }
 
-    // Keep correct position when resizing
-    window.addEventListener('resize', () => {
-      const current = container.style.transform;
-      if (current.includes("-100%") || current.includes("-50%")) {
-        slideToPage(1);
-      } else {
-        slideToPage(0);
-      }
-    });
+    seeProcess.addEventListener('click', () => slideTo(1));
+    goBack.addEventListener('click', () => slideTo(0));
+
+    // Recalculate on resize / orientation change so scaling stays perfect
+    window.addEventListener('resize', () => slideTo(currentPage));
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => slideTo(currentPage));
+    }
   </script>
 </body>
 </html>
