@@ -10,119 +10,139 @@
       --btn-bg-hover: #1ea869;
     }
 
-    /* Reset / Base */
-    * { box-sizing: border-box; }
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      margin: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden; /* no scrollbars; two full-screen slides */
       font-family: "Segoe UI", Arial, sans-serif;
+      overflow: hidden; /* no scrollbars, slide-based */
     }
 
-    /* Slider: exactly two screens wide */
+    /* Slider container */
     .container {
       display: flex;
-      width: calc(100vw * 2);          /* 2 pages, each 100vw */
-      height: 100vh;                   /* fallback */
-      height: 100svh;                  /* mobile safe viewport */
+      width: 200vw; /* 2 pages */
+      height: 100vh;
       transition: transform 0.7s ease;
       will-change: transform;
     }
 
     .page {
-      width: 100vw;
-      height: 100vh;                   /* fallback */
-      height: 100svh;                  /* mobile safe viewport */
-      flex: 0 0 100vw;                 /* each page exactly 100vw */
+      flex: 0 0 100vw;
+      height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
-      text-align: center;
+      justify-content: center;
+      align-items: center;
       position: relative;
-      padding: 16px;
+      padding: 1rem;
+      text-align: center;
     }
 
-    /* Page 1 (Landing) */
+    /* Backgrounds */
     .page1 {
-      background: url('hmo-backgroundax.png') center center / cover no-repeat;
+      background: url('hmo-backgroundax.png') center / cover no-repeat;
       color: #fff;
     }
-
-    /* See Process bottom-left (desktop), adjusted on mobile */
-    #seeProcess {
-      position: absolute;
-      left: 24px;
-      bottom: 24px;
-    }
-
-    /* Page 2 (Flow) */
     .page2 {
-      background: url('hmo-backgroundbx.png') center center / cover no-repeat;
+      background: url('hmo-backgroundbx.png') center / cover no-repeat;
       color: #222;
     }
 
-    /* Flowchart image scales with clamp for all screens */
-    .flowchart {
-      width: clamp(260px, 70vw, 920px);    /* responsive width */
-      max-height: min(62svh, 650px);       /* never too tall */
-      object-fit: contain;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      transition: transform .25s ease;
-      background: #fff;                    /* if PNG has transparency */
-    }
-    .flowchart:hover { transform: scale(1.015); }
-
-    /* Buttons */
+    /* Button styling */
     .btn {
       background: var(--btn-bg);
       color: #fff;
-      padding: 14px 24px;
+      padding: 0.9rem 1.6rem;
       border: 0;
-      border-radius: 30px;                 /* rounded */
-      font-weight: 700;
+      border-radius: 30px;
+      font-weight: 600;
       font-size: 1rem;
-      text-decoration: none;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,.18);
-      transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,.18);
+      transition: background .25s, transform .25s, box-shadow .25s;
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
     .btn:hover {
       background: var(--btn-bg-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+    }
+
+    /* Landing button placement */
+    #seeProcess {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+    }
+
+    /* Flowchart */
+    .flowchart {
+      width: 85%;
+      max-width: 700px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      background: #fff;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
     }
 
     .button-row {
       display: flex;
-      gap: 14px;
-      justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
     }
 
-    /* Mobile tweaks */
+    /* Mobile adjustments */
     @media (max-width: 768px) {
-      #seeProcess {
-        left: 16px;
-        bottom: 16px;
+      body {
+        font-size: 0.95rem;
       }
-      .btn { padding: 12px 18px; font-size: 0.95rem; }
-      .button-row { gap: 10px; }
+
+      #seeProcess {
+        bottom: 1rem;
+        left: 1rem;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.4rem;
+      }
+
       .flowchart {
-        width: clamp(220px, 90vw, 740px);
-        max-height: min(55svh, 520px);
+        width: 92%;
+        max-width: 480px;
+      }
+
+      .page1, .page2 {
+        background-size: cover;
+        background-position: center;
       }
     }
 
-    /* Respect users who prefer less motion */
+    @media (max-width: 480px) {
+      .btn {
+        font-size: 0.85rem;
+        padding: 0.7rem 1.2rem;
+      }
+      .flowchart {
+        width: 95%;
+        max-width: 380px;
+      }
+    }
+
+    /* Reduce motion */
     @media (prefers-reduced-motion: reduce) {
-      .container { transition: none; }
-      .flowchart, .btn { transition: none; }
+      .container, .flowchart, .btn { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
@@ -137,11 +157,10 @@
     <section class="page page2">
       <img src="flowchart.png" alt="Wellgivers Sponsorship Flow" class="flowchart" />
       <div class="button-row">
-        <a
-          class="btn"
-          target="_blank"
-          href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl="
-        >Start Sponsorship Registration</a>
+        <a class="btn" target="_blank"
+           href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=">
+          Start Sponsorship Registration
+        </a>
         <button class="btn" id="goBack">⬅ Back</button>
       </div>
     </section>
@@ -151,24 +170,18 @@
     const container = document.getElementById('container');
     const seeProcess = document.getElementById('seeProcess');
     const goBack = document.getElementById('goBack');
-
     let currentPage = 0;
 
     function viewportWidth() {
-      // Use visualViewport for mobile address bar changes when available
       return (window.visualViewport && window.visualViewport.width) || window.innerWidth;
     }
-
     function slideTo(index) {
       currentPage = index;
-      const offset = -index * viewportWidth(); // pixels, not %
+      const offset = -index * viewportWidth();
       container.style.transform = `translateX(${offset}px)`;
     }
-
     seeProcess.addEventListener('click', () => slideTo(1));
     goBack.addEventListener('click', () => slideTo(0));
-
-    // Recalculate on resize / orientation change so scaling stays perfect
     window.addEventListener('resize', () => slideTo(currentPage));
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => slideTo(currentPage));
