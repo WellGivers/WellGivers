@@ -21,7 +21,7 @@
     }
 
     .page {
-      flex: 0 0 100%; /* each page is 100% viewport width */
+      flex: 0 0 50%; /* each page = half the container (desktop) */
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -44,7 +44,7 @@
       color: white;
       padding: 14px 28px;
       text-decoration: none;
-      border-radius: 30px; /* Rounded pill shape */
+      border-radius: 30px;
       font-size: 1.1em;
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
@@ -57,7 +57,6 @@
       transform: scale(1.05);
     }
 
-    /* "See Process" button bottom-left */
     #seeProcess {
       position: absolute;
       bottom: 20px;
@@ -73,13 +72,12 @@
     }
 
     .page2 img {
-      max-width: 95%; /* Fit better on mobile */
-      max-height: 60vh; /* Take most of screen height */
+      max-width: 90%;
+      max-height: 70vh;
       border-radius: 10px;
       margin-bottom: 20px;
     }
 
-    /* Button Row for page2 */
     .button-row {
       display: flex;
       gap: 15px;
@@ -87,14 +85,14 @@
       justify-content: center;
     }
 
-    /* Responsive tweaks */
+    /* Mobile responsive fix */
     @media (max-width: 768px) {
-      .btn {
-        font-size: 1em;
-        padding: 12px 20px;
+      .page {
+        flex: 0 0 100%; /* each page fills screen */
       }
       .page2 img {
-        max-height: 50vh;
+        max-height: 55vh;
+        max-width: 95%;
       }
     }
   </style>
@@ -110,7 +108,6 @@
     <!-- Page 2 -->
     <div class="page page2">
       <img src="flowchart.png" alt="Flowchart">
-
       <div class="button-row">
         <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">
           Start Sponsorship Registration
@@ -125,12 +122,25 @@
     const seeProcess = document.getElementById('seeProcess');
     const goBack = document.getElementById('goBack');
 
-    seeProcess.addEventListener('click', () => {
-      container.style.transform = 'translateX(-100%)'; // full width slide
-    });
+    function slideToPage(pageIndex) {
+      // Desktop = 50% per page, Mobile = 100% per page
+      const isMobile = window.innerWidth <= 768;
+      const shift = isMobile ? -100 * pageIndex : -50 * pageIndex;
+      container.style.transform = `translateX(${shift}%)`;
+    }
 
-    goBack.addEventListener('click', () => {
-      container.style.transform = 'translateX(0)';
+    seeProcess.addEventListener('click', () => slideToPage(1));
+    goBack.addEventListener('click', () => slideToPage(0));
+
+    // Adjust on resize
+    window.addEventListener('resize', () => {
+      // Keep the current page in view when resizing
+      const currentTransform = container.style.transform;
+      if (currentTransform.includes("-100%") || currentTransform.includes("-50%")) {
+        slideToPage(1);
+      } else {
+        slideToPage(0);
+      }
     });
   </script>
 </body>
