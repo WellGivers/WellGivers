@@ -29,11 +29,15 @@
       flex-direction: column;
       text-align: center;
       position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     /* Landing Page */
     .page1 {
-      background: url('hmo-backgroundaa.png') no-repeat center center/cover;
+      background-image: url('hmo-backgroundaa.png');
+      background-attachment: fixed;
       color: white;
     }
 
@@ -76,7 +80,8 @@
 
     /* Flowchart Page */
     .page2 {
-      background: #f9f9f9 url('hmo-backgroundbb.png') no-repeat center center/cover;
+      background-image: url('hmo-backgroundbb.png');
+      background-attachment: fixed;
       color: #333;
     }
 
@@ -87,11 +92,12 @@
     }
 
     .page2 img {
-      max-width: 98%;
-      max-height: 80vh;
+      max-width: 95%;
+      max-height: 75vh;
       border-radius: 10px;
       margin-bottom: 20px;
       transition: transform 0.4s;
+      object-fit: contain;
     }
 
     .page2 img:hover {
@@ -130,7 +136,7 @@
     <!-- Page 2 -->
     <div class="page page2">
       <h2></h2>
-      <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart">
+      <img src="flowchart.png" alt="">
 
       <div class="button-row">
         <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">Start Sponsorship Registration</a>
