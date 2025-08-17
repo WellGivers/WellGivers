@@ -21,7 +21,7 @@
     }
 
     .page {
-      flex: 0 0 50%; /* each takes half of container = 100% viewport */
+      flex: 0 0 50%; /* each takes half (desktop default) */
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -29,6 +29,8 @@
       flex-direction: column;
       text-align: center;
       position: relative;
+      box-sizing: border-box;
+      padding: 20px;
     }
 
     /* Landing Page */
@@ -39,12 +41,12 @@
     }
 
     .btn {
-      background: #26c579; /* Updated button color */
+      background: #26c579;
       color: white;
       padding: 14px 28px;
       text-decoration: none;
-      border-radius: 30px; /* Rounded pill shape */
-      font-size: 1.2em;
+      border-radius: 30px;
+      font-size: 1.1em;
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
       cursor: pointer;
@@ -52,11 +54,10 @@
     }
 
     .btn:hover {
-      background: #1ea869; /* Slightly darker hover shade */
+      background: #1ea869;
       transform: scale(1.05);
     }
 
-    /* "See Process" button bottom-left */
     #seeProcess {
       position: absolute;
       bottom: 30px;
@@ -71,8 +72,8 @@
     }
 
     .page2 img {
-      max-width: 120%; /* Smaller flowchart */
-      max-height: 54vh;
+      max-width: 90%; 
+      max-height: 60vh;
       border-radius: 10px;
       margin-bottom: 20px;
       transition: transform 0.4s;
@@ -82,11 +83,49 @@
       transform: scale(1.02);
     }
 
-    /* Button Row for page2 */
     .button-row {
       display: flex;
       gap: 20px;
       justify-content: center;
+      flex-wrap: wrap; /* allows stacking if small */
+    }
+
+    /* 🔹 Responsive Mobile Fix */
+    @media (max-width: 768px) {
+      .container {
+        width: 200%; /* still slide */
+      }
+
+      .page {
+        flex: 0 0 100%; /* each page takes full width */
+      }
+
+      .page2 img {
+        max-width: 100%;
+        max-height: 50vh;
+      }
+
+      #seeProcess {
+        bottom: 15px;
+        left: 15px;
+        font-size: 1em;
+        padding: 12px 20px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 1em;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .button-row .btn {
+        width: 100%; /* full width on mobile */
+      }
     }
   </style>
 </head>
@@ -100,10 +139,11 @@
 
     <!-- Page 2 -->
     <div class="page page2">
-      <img src="flowchart.png" alt="">
+      <img src="flowchart.png" alt="Flowchart">
 
       <div class="button-row">
-        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">
+        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" 
+           target="_blank" class="btn">
           Start Sponsorship Registration
         </a>
         <button class="btn" id="goBack">⬅ Back</button>
