@@ -22,7 +22,7 @@
     .slider {
       display: flex;
       width: 200%;
-      height: 100dvh;
+      height: 100vh;
       transform: translateX(0);
       transition: transform 700ms cubic-bezier(.22,.61,.36,1);
       will-change: transform;
@@ -31,7 +31,7 @@
 
     .page {
       width: 100vw;
-      height: 100dvh;
+      height: 100vh;
       flex: 0 0 100vw;
       position: relative;
       display: flex;
@@ -39,7 +39,6 @@
       justify-content: center;
       text-align: center;
       padding: 40px 20px;
-      overflow-y: auto;
     }
 
     /* Landing page */
@@ -63,11 +62,11 @@
     .btn {
       display: inline-block;
       padding: 14px 26px;
-      border-radius: 12px;               /* rounded rectangle */
+      border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
       letter-spacing: .3px;
-      background: #00bf63;              /* green */
+      background: #00bf63;
       color: #fff;
       font-family: "Poppins", sans-serif;
       font-size: 1rem;
@@ -91,20 +90,21 @@
     }
     #flow .inner {
       position: relative; z-index: 1;
-      max-width: 1100px; width: 100%;
+      max-width: 900px;
+      width: 100%;
       display: flex; flex-direction: column; align-items: center;
-      gap: 22px;
+      gap: 18px;
       animation: riseIn 700ms ease both;
     }
-    #flow h2 { margin: 0 0 6px; font-size: 2.2rem; }
+    #flow h2 { margin: 0 0 6px; font-size: 2rem; }
     #flow .sub { margin: 0 0 12px; font-size: 1rem; opacity: .9; }
 
-    /* Flowchart image */
+    /* Flowchart image smaller */
     .flow-img {
-      width: min(92vw, 1050px);
+      width: min(70vw, 700px); /* reduced size */
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
       background: #fff;
     }
 
@@ -116,23 +116,19 @@
       margin-top: 6px;
     }
 
-    /* Back button styled same */
-    .btn.secondary {
-      background: #00bf63;
-    }
-    .btn.secondary:hover {
-      background: #009e52;
-    }
+    /* Back button */
+    .btn.secondary { background: #00bf63; }
+    .btn.secondary:hover { background: #009e52; }
 
     /* Animations */
     @keyframes fadeIn { from {opacity: 0; transform: translateY(8px)} to {opacity: 1; transform: translateY(0)} }
     @keyframes riseIn { from {opacity: 0; transform: translateY(10px)} to {opacity: 1; transform: translateY(0)} }
 
-    /* Position "See Process" button */
+    /* Position "See Process" button (top-left but not too low) */
     #seeProcess {
       position: absolute;
-      left: 244.7px;
-      top: 721.8px;
+      top: 15%;
+      left: 8%;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -148,8 +144,8 @@
     <!-- Page 1: Landing -->
     <section class="page" id="landing">
       <div class="inner">
-        <h1></h1>
-        <p></p>
+        <h1>Wellgivers HMO</h1>
+        <p>Access healthcare sponsorship easily.</p>
         <a href="#" class="btn" id="seeProcess">See Process</a>
       </div>
     </section>
@@ -158,7 +154,7 @@
     <section class="page" id="flow">
       <div class="inner">
         <h2>Sponsorship Process Flow</h2>
-        <p class="sub">.</p>
+        <p class="sub">Follow the simple steps below.</p>
 
         <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart" class="flow-img" />
 
@@ -177,11 +173,11 @@
     const slider = document.getElementById('slider');
     document.getElementById('seeProcess').addEventListener('click', (e) => {
       e.preventDefault();
-      slider.classList.add('slide-next');   // slide to second page
+      slider.classList.add('slide-next');
     });
     document.getElementById('goBack').addEventListener('click', (e) => {
       e.preventDefault();
-      slider.classList.remove('slide-next'); // back to landing
+      slider.classList.remove('slide-next');
     });
   </script>
 </body>
