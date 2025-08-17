@@ -1,183 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wellgivers HMO</title>
-
-  <!-- Import Poppins font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
   <style>
-    /* Base */
-    * { box-sizing: border-box; }
-    body {
+    body, html {
       margin: 0;
-      font-family: "Poppins", Arial, sans-serif;
+      padding: 0;
+      height: 100%;
       overflow: hidden;
-      color: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    /* Slider layout */
-    .slider {
+    .container {
       display: flex;
-      width: 200%;
+      width: 200%; /* two full screens side by side */
       height: 100vh;
-      transform: translateX(0);
-      transition: transform 700ms cubic-bezier(.22,.61,.36,1);
-      will-change: transform;
+      transition: transform 1s ease-in-out;
     }
-    .slider.slide-next { transform: translateX(-100vw); }
 
     .page {
-      width: 100vw;
+      flex: 0 0 50%; /* each takes half of container = 100% viewport */
       height: 100vh;
-      flex: 0 0 100vw;
-      position: relative;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: center;
+      flex-direction: column;
       text-align: center;
-      padding: 40px 20px;
     }
 
-    /* Landing page */
-    #landing {
-      background: url('hmo-backgroundaa.png') center/cover no-repeat;
+    /* Landing Page */
+    .page1 {
+      background: url('hmo-backgroundaa.png') no-repeat center center/cover;
+      color: white;
+      position: relative;
     }
-    #landing::after {
-      content: "";
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,.55);
-    }
-    #landing .inner {
-      position: relative; z-index: 1;
-      max-width: 900px;
-      animation: fadeIn 900ms ease both;
-    }
-    #landing h1 { font-size: 3rem; margin: 0 0 12px; }
-    #landing p { font-size: 1.2rem; margin: 0 0 28px; opacity: .95; }
 
-    /* Button style */
+    .page1 h1 {
+      font-size: 3em;
+      margin: 0;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .page1 p {
+      font-size: 1.3em;
+      margin: 15px 0 30px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
     .btn {
-      display: inline-block;
-      padding: 14px 26px;
-      border-radius: 12px;
+      background: #20b2aa;
+      color: white;
+      padding: 14px 28px;
       text-decoration: none;
-      font-weight: 600;
-      letter-spacing: .3px;
-      background: #00bf63;
-      color: #fff;
-      font-family: "Poppins", sans-serif;
-      font-size: 1rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      border-radius: 8px;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: transform 0.3s, background 0.3s;
       cursor: pointer;
-      transition: transform .25s, background .25s, box-shadow .25s;
     }
+
     .btn:hover {
-      transform: translateY(-3px);
-      background: #009e52;
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      background: #2e8b57;
+      transform: scale(1.05);
     }
 
-    /* Flow page */
-    #flow {
-      background: url('hmo-backgroundbb.png') center/cover no-repeat, linear-gradient(135deg,#1c6e63,#2e8b57);
-    }
-    #flow::after {
-      content: ""; position: absolute; inset: 0;
-      background: rgba(0,0,0,.45);
-    }
-    #flow .inner {
-      position: relative; z-index: 1;
-      max-width: 900px;
-      width: 100%;
-      display: flex; flex-direction: column; align-items: center;
-      gap: 18px;
-      animation: riseIn 700ms ease both;
-    }
-    #flow h2 { margin: 0 0 6px; font-size: 2rem; }
-    #flow .sub { margin: 0 0 12px; font-size: 1rem; opacity: .9; }
-
-    /* Flowchart image smaller */
-    .flow-img {
-      width: min(70vw, 700px); /* reduced size */
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.35);
-      background: #fff;
+    /* Flowchart Page */
+    .page2 {
+      background: #f9f9f9 url('hmo-backgroundbb.png') no-repeat center center/cover;
+      color: #333;
     }
 
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 6px;
+    .page2 h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #2e8b57;
     }
 
-    /* Back button */
-    .btn.secondary { background: #00bf63; }
-    .btn.secondary:hover { background: #009e52; }
+    .page2 img {
+      max-width: 90%;
+      max-height: 60vh;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      margin-bottom: 30px;
+      transition: transform 0.4s;
+    }
+
+    .page2 img:hover {
+      transform: scale(1.02);
+    }
 
     /* Animations */
-    @keyframes fadeIn { from {opacity: 0; transform: translateY(8px)} to {opacity: 1; transform: translateY(0)} }
-    @keyframes riseIn { from {opacity: 0; transform: translateY(10px)} to {opacity: 1; transform: translateY(0)} }
-
-    /* Position "See Process" button (top-left but not too low) */
-    #seeProcess {
-      position: absolute;
-      top: 15%;
-      left: 8%;
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .slider { transition: none; }
-      .btn, .flow-img { transition: none; }
-      #landing .inner, #flow .inner { animation: none; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="slider" id="slider">
-    <!-- Page 1: Landing -->
-    <section class="page" id="landing">
-      <div class="inner">
-        <h1>Wellgivers HMO</h1>
-        <p>Access healthcare sponsorship easily.</p>
-        <a href="#" class="btn" id="seeProcess">See Process</a>
-      </div>
-    </section>
+  <div class="container" id="container">
+    <!-- Page 1 -->
+    <div class="page page1">
+      <h1></h1>
+      <p></p>
+      <button class="btn" id="seeProcess">See Process</button>
+    </div>
 
-    <!-- Page 2: Process -->
-    <section class="page" id="flow">
-      <div class="inner">
-        <h2>Sponsorship Process Flow</h2>
-        <p class="sub">Follow the simple steps below.</p>
-
-        <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart" class="flow-img" />
-
-        <div class="btn-row">
-          <a class="btn" target="_blank"
-             href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=">
-            Start Sponsorship Registration
-          </a>
-          <a href="#" class="btn secondary" id="goBack">⬅ Back</a>
-        </div>
-      </div>
-    </section>
+    <!-- Page 2 -->
+    <div class="page page2">
+      <h2></h2>
+      <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart">
+      <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">Start Sponsorship Registration</a>
+      <br><br>
+      <button class="btn" id="goBack">⬅ Back</button>
+    </div>
   </div>
 
   <script>
-    const slider = document.getElementById('slider');
-    document.getElementById('seeProcess').addEventListener('click', (e) => {
-      e.preventDefault();
-      slider.classList.add('slide-next');
+    const container = document.getElementById('container');
+    const seeProcess = document.getElementById('seeProcess');
+    const goBack = document.getElementById('goBack');
+
+    seeProcess.addEventListener('click', () => {
+      container.style.transform = 'translateX(-50%)';
     });
-    document.getElementById('goBack').addEventListener('click', (e) => {
-      e.preventDefault();
-      slider.classList.remove('slide-next');
+
+    goBack.addEventListener('click', () => {
+      container.style.transform = 'translateX(0)';
     });
   </script>
 </body>
