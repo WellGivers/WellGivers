@@ -5,123 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wellgivers HMO</title>
   <style>
-    /* General Reset + Smooth Scroll */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
       scroll-behavior: smooth;
-      background: #f9f9f9;
-      color: #333;
+      overflow-x: hidden;
     }
 
     /* Hero Section */
     header {
       height: 100vh;
-      background: linear-gradient(rgba(46,139,87,0.85), rgba(32,178,170,0.85)),
-                  url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') 
-                  center/cover no-repeat;
+      background: url('hmo-background.jpg') no-repeat center center/cover; 
       color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 20px;
-      animation: fadeIn 1.2s ease-in-out forwards;
-    }
-    header h1 {
-      font-size: 3.5em;
-      margin-bottom: 10px;
-      opacity: 0;
-      transform: translateY(-30px);
-      animation: slideDown 1.2s ease forwards 0.3s;
-    }
-    header p {
-      font-size: 1.3em;
-      margin-bottom: 25px;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: slideDown 1.2s ease forwards 0.6s;
-    }
-    header a {
-      background: white;
-      color: #2e8b57;
-      padding: 14px 28px;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.1em;
-      font-weight: bold;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease forwards 1s;
-    }
-    header a:hover {
-      background: #2e8b57;
-      color: white;
-      transform: translateY(-3px);
+      position: relative;
     }
 
-    /* Section */
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55); /* dark overlay for readability */
+    }
+
+    header h1, header p, header a {
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    header p {
+      font-size: 1.3em;
+      margin: 15px 0 30px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    header a {
+      background: #20b2aa;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: transform 0.3s, background 0.3s;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    header a:hover {
+      background: #2e8b57;
+      transform: scale(1.05);
+    }
+
+    /* Flowchart Section */
     section {
       padding: 80px 20px;
       text-align: center;
-      background: white;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeUp 1s ease forwards;
-      animation-timeline: view();
-      animation-range: entry 20% cover 30%;
+      background: #f9f9f9;
+      min-height: 100vh;
+      transform: translateY(100vh);
+      transition: transform 1s ease-in-out;
     }
+
+    section.active {
+      transform: translateY(0);
+    }
+
     section h2 {
-      font-size: 2.2em;
-      margin-bottom: 30px;
+      font-size: 2em;
+      margin-bottom: 20px;
       color: #2e8b57;
     }
+
     section img {
-      max-width: 85%;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      transition: transform 0.4s ease;
+      max-width: 90%;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      margin-bottom: 30px;
+      transition: transform 0.4s;
     }
+
     section img:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
+
     section a {
-      display: inline-block;
-      margin-top: 25px;
-      background: linear-gradient(to right, #2e8b57, #20b2aa);
+      background: #2e8b57;
       color: white;
       padding: 14px 28px;
-      border-radius: 50px;
+      text-decoration: none;
+      border-radius: 8px;
       font-size: 1.2em;
       font-weight: bold;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.3s;
     }
+
     section a:hover {
-      background: #1d7c5c;
-      transform: translateY(-3px);
+      background: #20b2aa;
+      transform: scale(1.05);
     }
 
     /* Animations */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes slideDown {
-      from {opacity: 0; transform: translateY(-30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeUp {
-      from {opacity: 0; transform: translateY(40px);}
-      to {opacity: 1; transform: translateY(0);}
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -131,7 +132,7 @@
   <header>
     <h1>Welcome to Wellgivers HMO</h1>
     <p>Your sponsorship journey simplified</p>
-    <a href="#flowchart">See Process</a>
+    <a href="#flowchart" id="seeProcess">See Process</a>
   </header>
 
   <!-- Flowchart Section -->
@@ -140,10 +141,16 @@
     <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart">
 
     <br><br>
-    <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl="_blank">
-      Start Sponsorship Registration
-    </a>
+    <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank">Start Sponsorship Registration</a>
   </section>
 
+  <script>
+    // Smooth slide transition effect
+    document.getElementById("seeProcess").addEventListener("click", function(e) {
+      e.preventDefault();
+      document.getElementById("flowchart").classList.add("active");
+      document.getElementById("flowchart").scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
 </body>
 </html>
