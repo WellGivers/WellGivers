@@ -9,43 +9,43 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      width: 100%;
       overflow: hidden;
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
     .container {
       display: flex;
-      width: 200%; /* two full pages side by side */
+      width: 200%; /* two pages side by side */
       height: 100vh;
-      transition: transform 1s ease-in-out;
+      transition: transform 0.8s ease-in-out;
     }
 
     .page {
-      flex: 0 0 50%; /* each page = half the container (desktop) */
+      flex: 0 0 50%; /* desktop: half width */
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       text-align: center;
-      position: relative;
       box-sizing: border-box;
       padding: 20px;
     }
 
-    /* Landing Page */
     .page1 {
       background: url('hmo-backgroundax.png') center center no-repeat;
       background-size: cover;
+      position: relative;
     }
 
     .btn {
-      background: #26c579; /* Updated button color */
+      background: #26c579;
       color: white;
       padding: 14px 28px;
       text-decoration: none;
       border-radius: 30px;
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
       cursor: pointer;
@@ -63,36 +63,47 @@
       left: 20px;
     }
 
-    /* Flowchart Page */
     .page2 {
       background: url('hmo-backgroundbx.png') center center no-repeat;
       background-size: cover;
       color: #333;
-      overflow-y: auto;
     }
 
     .page2 img {
       max-width: 90%;
       max-height: 70vh;
-      border-radius: 10px;
+      object-fit: contain;
       margin-bottom: 20px;
+      border-radius: 10px;
     }
 
     .button-row {
       display: flex;
-      gap: 15px;
       flex-wrap: wrap;
+      gap: 15px;
       justify-content: center;
     }
 
-    /* Mobile responsive fix */
+    /* MOBILE RESPONSIVENESS */
     @media (max-width: 768px) {
-      .page {
-        flex: 0 0 100%; /* each page fills screen */
+      .container {
+        width: 200%; /* still 2 pages */
       }
+
+      .page {
+        flex: 0 0 100%; /* each page full width */
+        height: 100vh;
+        padding: 15px;
+      }
+
       .page2 img {
-        max-height: 55vh;
         max-width: 95%;
+        max-height: 55vh; /* shrink more */
+      }
+
+      #seeProcess {
+        left: 50%;
+        transform: translateX(-50%); /* center button */
       }
     }
   </style>
@@ -123,7 +134,6 @@
     const goBack = document.getElementById('goBack');
 
     function slideToPage(pageIndex) {
-      // Desktop = 50% per page, Mobile = 100% per page
       const isMobile = window.innerWidth <= 768;
       const shift = isMobile ? -100 * pageIndex : -50 * pageIndex;
       container.style.transform = `translateX(${shift}%)`;
@@ -132,11 +142,10 @@
     seeProcess.addEventListener('click', () => slideToPage(1));
     goBack.addEventListener('click', () => slideToPage(0));
 
-    // Adjust on resize
+    // Keep correct position when resizing
     window.addEventListener('resize', () => {
-      // Keep the current page in view when resizing
-      const currentTransform = container.style.transform;
-      if (currentTransform.includes("-100%") || currentTransform.includes("-50%")) {
+      const current = container.style.transform;
+      if (current.includes("-100%") || current.includes("-50%")) {
         slideToPage(1);
       } else {
         slideToPage(0);
