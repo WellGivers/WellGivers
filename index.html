@@ -8,15 +8,24 @@
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      overflow: hidden; /* no scrollbars */
+      overflow-x: hidden;
     }
 
     .page {
+      height: 100vh;
+      width: 100vw;
       position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      transition: transform 1s ease-in-out;
+      top: 0;
+      left: 100%;
+      background: white;
+      transition: left 0.8s ease-in-out;
+      overflow-y: auto;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .page.active {
+      left: 0;
     }
 
     /* Landing Page */
@@ -28,7 +37,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      z-index: 2;
     }
 
     #landing::after {
@@ -74,47 +82,44 @@
     }
 
     /* Flowchart Page */
-    #flowchart {
+    #flowchartPage {
       background: #f9f9f9;
       text-align: center;
-      padding: 60px 20px;
-      transform: translateX(100%); /* hidden off-screen */
     }
 
-    #flowchart.active {
-      transform: translateX(0); /* slide in */
-    }
-
-    #flowchart h2 {
+    #flowchartPage h2 {
       font-size: 2em;
       margin-bottom: 20px;
       color: #2e8b57;
     }
 
-    #flowchart img {
+    #flowchartPage img {
       max-width: 90%;
+      height: auto;
       border-radius: 10px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.25);
       margin-bottom: 30px;
       transition: transform 0.4s;
     }
 
-    #flowchart img:hover {
+    #flowchartPage img:hover {
       transform: scale(1.02);
     }
 
-    #flowchart a {
+    #flowchartPage a {
+      display: inline-block;
+      margin: 15px;
       background: #2e8b57;
       color: white;
       padding: 14px 28px;
       text-decoration: none;
       border-radius: 8px;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bold;
       transition: background 0.3s, transform 0.3s;
     }
 
-    #flowchart a:hover {
+    #flowchartPage a:hover {
       background: #20b2aa;
       transform: scale(1.05);
     }
@@ -134,26 +139,37 @@
 <body>
 
   <!-- Landing Page -->
-  <div class="page" id="landing">
+  <div class="page active" id="landing">
     <h1>Welcome to Wellgivers HMO</h1>
     <p>Your sponsorship journey simplified</p>
     <a href="#" id="seeProcess">See Process</a>
   </div>
 
   <!-- Flowchart Page -->
-  <div class="page" id="flowchart">
+  <div class="page" id="flowchartPage">
     <h2>Sponsorship Process Flow</h2>
     <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart">
-    <br><br>
+
+    <br>
     <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank">Start Sponsorship Registration</a>
+    <br><br>
+    <a href="#" id="goBack">⬅ Back to Home</a>
   </div>
 
   <script>
+    const landing = document.getElementById("landing");
+    const flowchartPage = document.getElementById("flowchartPage");
+
     document.getElementById("seeProcess").addEventListener("click", function(e) {
       e.preventDefault();
-      // Slide landing out, flowchart in
-      document.getElementById("landing").style.transform = "translateX(-100%)";
-      document.getElementById("flowchart").classList.add("active");
+      landing.classList.remove("active");
+      flowchartPage.classList.add("active");
+    });
+
+    document.getElementById("goBack").addEventListener("click", function(e) {
+      e.preventDefault();
+      flowchartPage.classList.remove("active");
+      landing.classList.add("active");
     });
   </script>
 </body>
