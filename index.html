@@ -15,13 +15,13 @@
 
     .container {
       display: flex;
-      width: 200%; /* two full screens side by side */
+      width: 200%; /* two full pages side by side */
       height: 100vh;
       transition: transform 1s ease-in-out;
     }
 
     .page {
-      flex: 0 0 50%; /* each takes half (desktop default) */
+      flex: 0 0 100%; /* each page is 100% viewport width */
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -37,15 +37,14 @@
     .page1 {
       background: url('hmo-backgroundax.png') center center no-repeat;
       background-size: cover;
-      color: white;
     }
 
     .btn {
-      background: #26c579;
+      background: #26c579; /* Updated button color */
       color: white;
       padding: 14px 28px;
       text-decoration: none;
-      border-radius: 30px;
+      border-radius: 30px; /* Rounded pill shape */
       font-size: 1.1em;
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
@@ -58,10 +57,11 @@
       transform: scale(1.05);
     }
 
+    /* "See Process" button bottom-left */
     #seeProcess {
       position: absolute;
-      bottom: 30px;
-      left: 30px;
+      bottom: 20px;
+      left: 20px;
     }
 
     /* Flowchart Page */
@@ -69,62 +69,32 @@
       background: url('hmo-backgroundbx.png') center center no-repeat;
       background-size: cover;
       color: #333;
+      overflow-y: auto;
     }
 
     .page2 img {
-      max-width: 90%; 
-      max-height: 60vh;
+      max-width: 95%; /* Fit better on mobile */
+      max-height: 60vh; /* Take most of screen height */
       border-radius: 10px;
       margin-bottom: 20px;
-      transition: transform 0.4s;
     }
 
-    .page2 img:hover {
-      transform: scale(1.02);
-    }
-
+    /* Button Row for page2 */
     .button-row {
       display: flex;
-      gap: 20px;
+      gap: 15px;
+      flex-wrap: wrap;
       justify-content: center;
-      flex-wrap: wrap; /* allows stacking if small */
     }
 
-    /* 🔹 Responsive Mobile Fix */
+    /* Responsive tweaks */
     @media (max-width: 768px) {
-      .container {
-        width: 200%; /* still slide */
-      }
-
-      .page {
-        flex: 0 0 100%; /* each page takes full width */
-      }
-
-      .page2 img {
-        max-width: 100%;
-        max-height: 50vh;
-      }
-
-      #seeProcess {
-        bottom: 15px;
-        left: 15px;
-        font-size: 1em;
-        padding: 12px 20px;
-      }
-
       .btn {
-        padding: 12px 20px;
         font-size: 1em;
+        padding: 12px 20px;
       }
-
-      .button-row {
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-      }
-
-      .button-row .btn {
-        width: 100%; /* full width on mobile */
+      .page2 img {
+        max-height: 50vh;
       }
     }
   </style>
@@ -142,8 +112,7 @@
       <img src="flowchart.png" alt="Flowchart">
 
       <div class="button-row">
-        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" 
-           target="_blank" class="btn">
+        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">
           Start Sponsorship Registration
         </a>
         <button class="btn" id="goBack">⬅ Back</button>
@@ -157,7 +126,7 @@
     const goBack = document.getElementById('goBack');
 
     seeProcess.addEventListener('click', () => {
-      container.style.transform = 'translateX(-50%)';
+      container.style.transform = 'translateX(-100%)'; // full width slide
     });
 
     goBack.addEventListener('click', () => {
