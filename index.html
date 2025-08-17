@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>Wellgivers HMO</title>
   <style>
     body, html {
       margin: 0;
@@ -38,24 +38,12 @@
       color: white;
     }
 
-    .page1 h1 {
-      font-size: 3em;
-      margin: 0;
-      animation: fadeInDown 1s ease-out;
-    }
-
-    .page1 p {
-      font-size: 1.3em;
-      margin: 15px 0 30px;
-      animation: fadeInUp 1.5s ease-out;
-    }
-
     .btn {
       background: #20b2aa;
       color: white;
       padding: 14px 28px;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 30px; /* More rounded */
       font-size: 1.2em;
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
@@ -83,8 +71,8 @@
     }
 
     .page2 img {
-      max-width: 95%;
-      max-height: 80vh;
+      max-width: 80%; /* Smaller flowchart */
+      max-height: 70vh;
       border-radius: 10px;
       margin-bottom: 20px;
       transition: transform 0.4s;
@@ -100,17 +88,6 @@
       gap: 20px;
       justify-content: center;
     }
-
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -118,8 +95,6 @@
   <div class="container" id="container">
     <!-- Page 1 -->
     <div class="page page1">
-      <h1></h1>
-      <p></p>
       <button class="btn" id="seeProcess">See Process</button>
     </div>
 
@@ -128,7 +103,9 @@
       <img src="flowchart.png" alt="">
 
       <div class="button-row">
-        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">Start Sponsorship Registration</a>
+        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">
+          Start Sponsorship Registration
+        </a>
         <button class="btn" id="goBack">⬅ Back</button>
       </div>
     </div>
