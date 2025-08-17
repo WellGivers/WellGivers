@@ -28,13 +28,13 @@
       align-items: center;
       flex-direction: column;
       text-align: center;
+      position: relative;
     }
 
     /* Landing Page */
     .page1 {
       background: url('hmo-backgroundaa.png') no-repeat center center/cover;
       color: white;
-      position: relative;
     }
 
     .page1 h1 {
@@ -59,11 +59,19 @@
       font-weight: bold;
       transition: transform 0.3s, background 0.3s;
       cursor: pointer;
+      border: none;
     }
 
     .btn:hover {
       background: #2e8b57;
       transform: scale(1.05);
+    }
+
+    /* "See Process" button bottom-left */
+    #seeProcess {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
     }
 
     /* Flowchart Page */
@@ -79,15 +87,22 @@
     }
 
     .page2 img {
-      max-width: 95%;
-      max-height: 85vh;
+      max-width: 98%;
+      max-height: 80vh;
       border-radius: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       transition: transform 0.4s;
     }
 
     .page2 img:hover {
       transform: scale(1.02);
+    }
+
+    /* Button Row for page2 */
+    .button-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
 
     /* Animations */
@@ -116,9 +131,11 @@
     <div class="page page2">
       <h2>Wellgivers Sponsorship Flow</h2>
       <img src="flowchart.png" alt="Wellgivers Sponsorship Flowchart">
-      <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">Start Sponsorship Registration</a>
-      <br><br>
-      <button class="btn" id="goBack">⬅ Back</button>
+
+      <div class="button-row">
+        <a href="https://forms.office.com/pages/responsepage.aspx?id=L3qRuuHieUSsFHpAEWgRbB7NzIfS14dJmK6tVZzWfpxUOFoxWjFBUE9PQkZZOElBRDhBSTdKSFo4TS4u&route=shorturl=" target="_blank" class="btn">Start Sponsorship Registration</a>
+        <button class="btn" id="goBack">⬅ Back</button>
+      </div>
     </div>
   </div>
 
